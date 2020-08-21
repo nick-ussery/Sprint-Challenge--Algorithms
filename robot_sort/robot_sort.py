@@ -112,21 +112,22 @@ class SortingRobot:
             while self.can_move_right() == True:  # will rerun until end of list
                 self.swap_item()
                 self.move_right()
-                print(
-                    f"on position:{self._position} comparing held item:{self._item} to {self._list[self._position]}")
+                # print(f"on position:{self._position} comparing held item:{self._item} to {self._list[self._position]}")
                 if self.compare_item() == 1:  # held item is bigger, now swap
                     self.swap_item()  # swaps
                     self.set_light_on()  # a swap happened. loop can restart
-                    self.move_left()
+                    self.move_left()  # move back and grab that item and move on
+                    # if self.compare_item() == 1:
                     self.swap_item()
                     self.move_right()
                 else:  # list item is bigger
-                    self.move_left()
-                    self.swap_item()
+                    self.move_left()  # move back and grab that item and move on
+                    if self.compare_item() == -1:
+                        self.swap_item()
                     self.move_right()
 
             # second loop is over, swap biggest item(item held) with whats in front of robot then move left
-            print(f"on end of list, restarting if swap happened")
+            # print(f"on end of list, restarting if swap happened")
             # restarts loop unless light is off
             while self.can_move_left():
                 self.move_left()
